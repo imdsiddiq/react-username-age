@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
@@ -48,13 +49,15 @@ const UserForm = (props) => {
 
   return (
     <Wrapper>
-      {error && (
-        <Modal
-          title={error.title}
-          message={error.message}
-          onConfirm={errorHandler}
-        />
-      )}
+      {error &&
+        ReactDOM.createPortal(
+          <Modal
+            title={error.title}
+            message={error.message}
+            onConfirm={errorHandler}
+          />,
+          document.getElementById("modal-root")
+        )}
       <Card className={styles.input}>
         <form onSubmit={submitHandler}>
           <label>Username</label>
